@@ -1,0 +1,59 @@
+#code for ATM
+import sys
+pin=2580
+input_pin=int(input("enter your 4 digit pin:"))
+if input_pin==pin:
+    class Atm:
+        def __init__(self):
+            self.saving_balance=0.00
+            self.checking_balance=100000
+            self.menu()
+        def menu(self):
+            print("""
+            Please enter your choice!
+                1.Check saving balance
+                2.Deposit balance
+                3.Withdraw balance
+                4.Transfer fund
+                5.Exit
+            """)
+            input_options=int(input("Enter your option:"))
+            if input_options==1:
+                self.check_balance()
+            elif input_options==2:
+                self.deposit_balance()
+            elif input_options==3:
+                self.withdraw_balance()
+            elif input_options==4:
+                self.transfer_fund()
+            elif input_options==5:
+                sys.exit()
+        def check_balance(self):
+            print(f"Your balance is {self.saving_balance}")
+            self.menu()
+        def deposit_balance(self):
+            input_deposit=float(input("Enter the amount:"))
+            self.saving_balance=self.saving_balance +input_deposit
+            print(f"Your updated saving_balance is {self.saving_balance}")
+            self.menu()
+        def withdraw_balance(self):
+            input_withdraw=float(input("Enter the amount:"))
+            if input_withdraw<=self.saving_balance:
+                self.saving_balance=self.saving_balance-input_withdraw
+                print(f"Your updated saving_balance is {self.saving_balance}")
+            else:
+                print("Insufficient balance!")
+            self.menu()
+        def transfer_fund(self):
+            input_transfer=float(input("Enter the amount to transfer: "))
+            if input_transfer<=self.checking_balance:
+                self.saving_balance=self.saving_balance+input_transfer
+                self.checking_balance=self.checking_balance-input_transfer
+                print(f"Your updated saving_balance is {self.saving_balance}")
+                print(f"Your updated checking_balance is {self.checking_balance}")
+            else:
+                print("Insufficient balance")
+            self.menu()
+    sbi=Atm() 
+else:
+    print("Incorrect pin")
